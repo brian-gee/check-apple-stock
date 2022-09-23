@@ -1,5 +1,6 @@
 let nodemailer = require('nodemailer');
-let dotenv = require("dotenv");
+let dotenv = require('dotenv');
+let fetch = require('node-fetch')
 const phones = ['MPXT3LL/A', 'MQ0N3LL/A']
 dotenv.config();
 const MAIL_USER = process.env.MAIL_USER;
