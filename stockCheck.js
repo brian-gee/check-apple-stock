@@ -4,9 +4,9 @@ const phones = ['MPXT3LL/A', 'MQ0N3LL/A']
 dotenv.config();
 const MAIL_USER = process.env.MAIL_USER;
 const MAIL_PASS = process.env.MAIL_PASS;
+const EMAIL_LIST = process.env.EMAIL_LIST;
 
 sendEmail = (product) => {
-    let emailList = ['brian86753099@gmail.com', 'nat_rez@icloud.com']
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -17,7 +17,7 @@ sendEmail = (product) => {
 
       let mailOptions = {
         from: 'theonebot77@gmail.com',
-        to: emailList,
+        to: EMAIL_LIST,
         subject: 'iPhone Availability',
         text: ( product + ' is available!')
       };
