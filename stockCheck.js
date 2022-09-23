@@ -19,7 +19,7 @@ sendEmail = (product) => {
         from: 'theonebot77@gmail.com',
         to: emailList,
         subject: 'iPhone Availability',
-        text: ( product + 'is available!')
+        text: ( product + ' is available!')
       };
 
       transporter.sendMail(mailOptions, function(error, info){
