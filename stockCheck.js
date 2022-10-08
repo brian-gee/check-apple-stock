@@ -1,34 +1,23 @@
-let nodemailer = require('nodemailer');
-let dotenv = require('dotenv');
-const phones = ['MPXT3LL/A', 'MQ0N3LL/A']
+const dotenv = require('dotenv');
+const fetch = require('node-fetch');
 dotenv.config();
-const MAIL_USER = process.env.MAIL_USER;
-const MAIL_PASS = process.env.MAIL_PASS;
-const EMAIL_LIST = process.env.EMAIL_LIST;
 
-sendEmail = (product) => {
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: MAIL_USER,
-          pass: MAIL_PASS
-        }
-      });
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const fromNumber = process.env.FROM_NUMBER;
+const toNumber = process.env.TO_NUMBER;
+const client = require('twilio')(accountSid, authToken)
 
-      let mailOptions = {
-        from: 'theonebot77@gmail.com',
-        to: EMAIL_LIST,
-        subject: 'iPhone Availability',
-        text: ( product + ' is available!')
-      };
+const phones = ['MPXT3LL/A','MQ0N3LL/A']
 
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
+sendSMS = (number, product) => {
+  client.messages
+  .create({
+     body: (product + ' is available!'),
+     from: fromNumber,
+     to: number
+   })
+  .then(message => console.log(message.sid));
 };
 
 checkPhone = (part) => {
@@ -44,10 +33,14 @@ checkPhone = (part) => {
         let status;
         if (productAvailable === "available")  {
             status = '✔️';
-          sendEmail(productName)
+          // sendEmail(productName);
+          // sendSMS(productName);
         };
         if (productAvailable === "unavailable") {
             status = '✖️';
+            // toNumber.forEach(e => {
+            //   sendSMS(e, productName);
+            // })
         };
 
         console.log(productName+ " - " + status);
@@ -56,3 +49,4 @@ checkPhone = (part) => {
 
 
 phones.forEach(checkPhone);
+// toNumber.forEach(e => "")
