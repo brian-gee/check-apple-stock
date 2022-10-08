@@ -33,20 +33,14 @@ checkPhone = (part) => {
         let status;
         if (productAvailable === "available")  {
             status = '✔️';
-          // sendEmail(productName);
-          // sendSMS(productName);
+            sendSMS(productName);
         };
         if (productAvailable === "unavailable") {
             status = '✖️';
-            // toNumber.forEach(e => {
-            //   sendSMS(e, productName);
-            // })
         };
-
         console.log(productName+ " - " + status);
     });
 };
 
 
 phones.forEach(checkPhone);
-// toNumber.forEach(e => "")
